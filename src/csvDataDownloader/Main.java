@@ -44,13 +44,6 @@ public class Main {
             e.printStackTrace();
         }
 
-
-
-
-
-        //http://ichart.finance.yahoo.com/table.csv?s=GOOG&a=0&b=1&c=2013&d=3&e=1&f=2014&g=d&ignore=.csv
-        //http://ichart.finance.yahoo.com/table.csv?s=APPL&a=1&b=6&c=2009&d=0&e=15&f=2015&g=d&ignore=.csv
-
     }
 
 }
