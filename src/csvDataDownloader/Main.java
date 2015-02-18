@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[]args) {
 
         String baseUrl = "http://ichart.finance.yahoo.com/table.csv?s=";
-        String ID = "AAPL";
+        String ID;
         String fDate = "&a=1&b=27&c=2009";
         String tDate = "&d=1&e=15&f=2015";
         String interval = "&g=d";
@@ -23,7 +23,7 @@ public class Main {
         List<String> lines;
 
         try {
-            lines = FileUtils.readLines(new File("/Users/ZachBluhm/stock-tracker/Data/testloop.txt"));
+            lines = FileUtils.readLines(new File("/Users/ZachBluhm/stock-tracker/Data/stock_tickers.txt"));
 
             for (String line : lines) {
                 ID = line;
