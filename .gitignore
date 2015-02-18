@@ -33,3 +33,4 @@ build/
 #intellij stuff
 *.iws
 *.iml
+*.xml
