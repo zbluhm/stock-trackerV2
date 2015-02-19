@@ -13,3 +13,11 @@ Things to do
     I.) Beta
         i.)  measures volatility with 1.0 being the market
             a.) <1 indicates less than market. >1 indicates more than market.
+        ii.) CAPM formula
+
+        E(r) = expected return
+        r    = risk-free rate = 10 Year U.S. Treasury securities rate
+        b    = beta
+        m    = return on market
+
+        E(r) = r + b(m - r)
