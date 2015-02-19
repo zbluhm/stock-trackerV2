@@ -20,7 +20,6 @@ public class Main {
 
     public static void main(String[]args) {
 
-
         FileReader fileReader = null;
         CSVParser csvParser = null;
         List<Integer> highs = new ArrayList<Integer>();
@@ -38,7 +37,7 @@ public class Main {
             for(int i = 1; i < csvRecords.size(); i++) {
 
                 CSVRecord record = (CSVRecord) csvRecords.get(i);
-                highs.add(Integer.parseInt(record.get(CLOSE)));
+                System.out.println(record.get(CLOSE));
 
             }
         }
