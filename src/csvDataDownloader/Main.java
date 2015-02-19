@@ -23,14 +23,14 @@ public class Main {
         List<String> lines;
 
         try {
-            lines = FileUtils.readLines(new File("/Users/ZachBluhm/stock-tracker/Data/stock_tickers.txt"));
+            lines = FileUtils.readLines(new File("/Users/ZachBluhm/stock-tracker/Data/index.txt"));
 
             for (String line : lines) {
                 ID = line;
                 try {
                     URL url = new URL(baseUrl + ID + tDate + fDate + interval + end);
 
-                    File file = new File("/Users/ZachBluhm/stock-tracker/Data/CSVs/" + ID + ".csv");
+                    File file = new File("/Users/ZachBluhm/stock-tracker/Data/" + ID + ".csv");
 
                     FileUtils.copyURLToFile(url, file);
                 }
