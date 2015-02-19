@@ -1,0 +1,15 @@
+Things to do
+
+1.) STOCK ANALYSIS METHODS
+    A.) Moving Average Crossover Rule
+    B.) Channel Breakout Rule
+    C.) Bollinger Bond Rule
+    D.) Dirichlet Process
+    E.) Stochastics (Slow Stochastic)
+    F.) Fast-Fourier Indicator
+    G.) Average Directional Index
+        i.) measures strength of current trend
+    H.) Aroon Indicator
+    I.) Beta
+        i.)  measures volatility with 1.0 being the market
+            a.) <1 indicates less than market. >1 indicates more than market.
