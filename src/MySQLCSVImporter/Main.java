@@ -16,9 +16,12 @@ public class Main {
     public static void main(String[]args) {
 
         try {
-            CSVLoader loader = new CSVLoader(getCon(), "AA");
+            //CSVLoader loader = new CSVLoader(getCon(), "AA");
 
-            loader.loadCSV("/Users/ZachBluhm/stock-tracker/Data/CSVs/AA.csv", "HistoricalPrices", false);
+            //loader.loadCSV("/Users/ZachBluhm/stock-tracker/Data/CSVs/AA.csv", "HistoricalPrices", true);
+
+            CSVStockLoader loader = new CSVStockLoader(getCon());
+            loader.loadCSV("/Users/ZachBluhm/stock-tracker/Data/stock_tickers.txt", "Stocks", true);
 
         } catch (Exception e) {
             e.printStackTrace();

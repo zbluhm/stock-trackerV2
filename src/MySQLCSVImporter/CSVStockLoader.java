@@ -2,7 +2,6 @@ package MySQLCSVImporter;
 
 import com.opencsv.CSVReader;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -10,11 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.Date;
 
-
 /**
- * Created by ZachBluhm on 2/19/15.
+ * Created by ZachBluhm on 2/20/15.
  */
-public class CSVLoader {
+public class CSVStockLoader {
     private static final String SQL_INSERT = "INSERT INTO ${table}(${keys}) VALUES(${values})";
     private static final String TABLE_REGEX = "\\$\\{table\\}";
     private static final String KEYS_REGEX = "\\$\\{keys\\}";
@@ -23,12 +21,10 @@ public class CSVLoader {
     private Connection connection;
     private char seperator;
 
-    private String symbol;
 
-    public CSVLoader(Connection connection, String symbol) {
+    public CSVStockLoader(Connection connection) {
         this.connection = connection;
         this.seperator = ',';
-        this.symbol = symbol;
 
     }
 
@@ -46,19 +42,7 @@ public class CSVLoader {
             throw new Exception("Error while loading CSV file." + e.getMessage());
         }
 
-        String[] headerRowCSV = csvReader.readNext();
-        String[] headerRow = new String[8];
-        headerRow[0] = "Symbol";
-        for (int i = 0, x = 1; i < headerRowCSV.length; i ++, x++) {  // Expanding the array to make room for symbol
-            headerRow[x] = headerRowCSV[i];
-        }
-
-        for (int i = 0; i < headerRow.length; i++) {                 //Setting the array content to lowercase
-            if (i == headerRow.length - 1) {
-                headerRow[i] = headerRow[i].replaceAll("\\s", "");   //Removes spaces from "adj close"
-            }
-            headerRow[i] = headerRow[i].toLowerCase();
-        }
+        String[] headerRow = csvReader.readNext();
 
         if (null == headerRow)  {
             throw new FileNotFoundException("CSV file format might be fucked.");
@@ -93,8 +77,7 @@ public class CSVLoader {
             while ((nextLine = csvReader.readNext()) != null) {
 
                 if (null != nextLine) {
-                    ps.setString(1, symbol);
-                    int index = 2;
+                    int index = 1;
                     for(String string : nextLine) {
                         ps.setString(index++, string);
                     }
@@ -129,6 +112,4 @@ public class CSVLoader {
     public void setSeperator(char s) {
         this.seperator = s;
     }
-
-
 }
