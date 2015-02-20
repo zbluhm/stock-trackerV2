@@ -22,7 +22,8 @@ public class Main {
 
         FileReader fileReader = null;
         CSVParser csvParser = null;
-        List<Integer> highs = new ArrayList<Integer>();
+        List<Integer> highs;
+        highs = new ArrayList<Integer>();
 
         CSVFormat csvFormat = CSVFormat.DEFAULT.withHeader(FILE_HEADER_MAPPING);
 
