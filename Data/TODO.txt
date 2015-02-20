@@ -1,5 +1,7 @@
 Things to do
 
+-remove duplicate tickers (TickerDuplicateRemover)
+
 1.) STOCK ANALYSIS METHODS
     A.) Moving Average Crossover Rule
     B.) Channel Breakout Rule
