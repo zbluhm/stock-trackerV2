@@ -42,7 +42,8 @@ public class CSVStockLoader {
             throw new Exception("Error while loading CSV file." + e.getMessage());
         }
 
-        String[] headerRow = csvReader.readNext();
+        String[] headerRow = new String[1];
+        headerRow[0] = "symbol";
 
         if (null == headerRow)  {
             throw new FileNotFoundException("CSV file format might be fucked.");
@@ -79,6 +80,7 @@ public class CSVStockLoader {
                 if (null != nextLine) {
                     int index = 1;
                     for(String string : nextLine) {
+                        System.out.println(string);
                         ps.setString(index++, string);
                     }
                     ps.addBatch();
