@@ -1,5 +1,23 @@
 Things to do
 
+BASIC MYSQL QUERY:
+
+SELECT open FROM HistoricalPrices WHERE open BETWEEN DATEDIFF(NOW() - 50 days) AND NOW() AND stock = 'whatever'
+
+EXAMPLE CODE TO USE IN JAVA:
+    -Say you want to get the closing prices of the last 50 days from the stock AAPL (Apple)
+    - Java code would be as follows:
+
+        //First create a statement:
+        Statement statement = con.createStatement();
+        //Execute the statement!:
+        ResultSet result = statement.executeQuery(INSERT IN HERE THE QUERY);
+
+        //result will now contain all the information you have asked for
+        //How to access this data?
+        float data = result.getFloat("close");
+
+
 
 1.) STOCK ANALYSIS METHODS
     A.) Moving Average Crossover Rule
@@ -44,3 +62,7 @@ Things to do
     C.) Standardize values returned by indicators
         i.) Create regression based on these values??
     D.)
+
+3.) DAILY DATABASE FETCH
+    A.) Downloads new CSVS
+    B.) A

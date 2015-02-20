@@ -1,23 +1,28 @@
-package MySQLCSVImporter;
+package Core.DailyImporter;
 
+
+import MySQLCSVImporter.CSVLoader;
 import org.apache.commons.io.FileUtils;
+import org.joda.time.DateTime;
 
 import java.io.File;
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.util.List;
 
 /**
- * Created by ZachBluhm on 2/19/15.
+ * Created by ZachBluhm on 2/20/15.
  */
-public class Main {
-
+public class ImporterMain {
     private static String MYSQL_CONNECTION_URL = "jdbc:mysql://localhost:3306/stockdb";
     private static String USER = "root";
     private static String PASSWORD = "";
 
     public static void main(String[]args) {
+
+        CSVDownloader.run();
+
+
         List<String> lines;
 
         try {
@@ -28,7 +33,7 @@ public class Main {
                 try {
                     CSVLoader loader = new CSVLoader(getCon(), line);
 
-                    loader.loadCSV("/Users/ZachBluhm/stock-tracker/Data/CSVs/" + line + ".csv", "HistoricalPrices", false);
+                    loader.loadCSV("/Users/ZachBluhm/stock-tracker/Data/DailyCSVs/" + line + ".csv", "HistoricalPrices", false);
 
                     System.out.println(left + " done out of " + lines.size());
 
@@ -41,6 +46,9 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
     }
 
     private static Connection getCon() {
