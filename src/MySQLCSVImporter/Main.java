@@ -21,7 +21,7 @@ public class Main {
             //loader.loadCSV("/Users/ZachBluhm/stock-tracker/Data/CSVs/AA.csv", "HistoricalPrices", true);
 
             CSVStockLoader loader = new CSVStockLoader(getCon());
-            loader.loadCSV("/Users/ZachBluhm/stock-tracker/Data/stock_tickers.txt", "Stocks", true);
+            loader.loadCSV("/Users/ZachBluhm/stock-tracker/Data/stock_tickers1.txt", "Stocks", true);
 
         } catch (Exception e) {
             e.printStackTrace();
