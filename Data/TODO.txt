@@ -13,11 +13,26 @@ Things to do
     I.) Beta
         i.)  measures volatility with 1.0 being the market
             a.) <1 indicates less than market. >1 indicates more than market.
-        ii.) CAPM formula
+        ii.)
 
-        E(r) = expected return
-        r    = risk-free rate = 10 Year U.S. Treasury securities rate
+        Opt.1)
+        CAPM formula
+
+        S    = stock return
+        r    = risk-free rate = X Year U.S. Treasury securities rate
         b    = beta
-        m    = return on market
+        m    = return on market = X year average annual return of
 
-        E(r) = r + b(m - r)
+                      S = r + b(m - r)
+        (S - r)/(m - r) = b
+
+        or...
+        weekly returns over X years
+
+        Sw = stock return % from previous weekly
+        rw = market return % from previous weekly
+        n  = number of week
+
+        cov(Sw, rw) = Sum((Sw@n - SwBAR)(rw@n - rwBAR)) / (n - 1)
+            var(rw) = Sum((rw@n - rwBAR)^2) / (n - 1)
+                  b = cov(Sw, rw) / var(rw)
