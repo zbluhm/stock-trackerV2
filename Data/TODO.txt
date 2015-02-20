@@ -1,6 +1,5 @@
 Things to do
 
--remove duplicate tickers (TickerDuplicateRemover)
 
 1.) STOCK ANALYSIS METHODS
     A.) Moving Average Crossover Rule
@@ -38,3 +37,10 @@ Things to do
         cov(Sw, rw) = Sum((Sw@n - SwBAR)(rw@n - rwBAR)) / (n - 1)
             var(rw) = Sum((rw@n - rwBAR)^2) / (n - 1)
                   b = cov(Sw, rw) / var(rw)
+
+2.) PROJECT STRUCTURE
+    A.) Finish inheritance system
+    B.) Finish/Create Database interaction class
+    C.) Standardize values returned by indicators
+        i.) Create regression based on these values??
+    D.)
