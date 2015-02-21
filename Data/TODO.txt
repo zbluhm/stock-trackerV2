@@ -2,7 +2,7 @@ Things to do
 
 BASIC MYSQL QUERY:
 
-SELECT open FROM HistoricalPrices WHERE open BETWEEN DATEDIFF(NOW() - 50 days) AND NOW() AND stock = 'whatever'
+SELECT open FROM HistoricalPrices WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND now() AND symbol = 'AA';
 
 EXAMPLE CODE TO USE IN JAVA:
     -Say you want to get the closing prices of the last 50 days from the stock AAPL (Apple)

@@ -16,21 +16,21 @@ public class Main {
 
         String baseUrl = "http://ichart.finance.yahoo.com/table.csv?s=";
         String ID;
-        String fDate = "&a=1&b=27&c=2009";
-        String tDate = "&d=1&e=15&f=2015";
+        String fDate = "&a=1&b=15&c=2015";
+        String tDate = "&d=1&e=20&f=2015";
         String interval = "&g=d";
         final String end = "&ignore=.csv";
         List<String> lines;
 
         try {
-            lines = FileUtils.readLines(new File("/Users/ZachBluhm/stock-tracker/Data/index.txt"));
+            lines = FileUtils.readLines(new File("/Users/ZachBluhm/stock-tracker/Data/stock_tickers1.txt"));
 
             for (String line : lines) {
                 ID = line;
                 try {
                     URL url = new URL(baseUrl + ID + tDate + fDate + interval + end);
 
-                    File file = new File("/Users/ZachBluhm/stock-tracker/Data/" + ID + ".csv");
+                    File file = new File("/Users/ZachBluhm/stock-tracker/Data/DailyCSVs/" + ID + ".csv");
 
                     FileUtils.copyURLToFile(url, file);
                 }

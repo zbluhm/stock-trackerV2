@@ -28,7 +28,7 @@ public class Main {
                 try {
                     CSVLoader loader = new CSVLoader(getCon(), line);
 
-                    loader.loadCSV("/Users/ZachBluhm/stock-tracker/Data/CSVs/" + line + ".csv", "HistoricalPrices", false);
+                    loader.loadCSV("/Users/ZachBluhm/stock-tracker/Data/DailyCSVs/" + line + ".csv", "HistoricalPrices", false);
 
                     System.out.println(left + " done out of " + lines.size());
 
