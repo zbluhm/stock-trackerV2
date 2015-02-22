@@ -7,9 +7,9 @@ public class MainTest {
 
     public static void main (String[]args) {
 
-        MACD macd = new MACD("'AA'");
+        Stochastics stoch = new Stochastics("'AAPL'");
 
-        macd.getMACD();
+        stoch.getStochastics();
 
     }
 
