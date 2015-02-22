@@ -1,5 +1,9 @@
 package Core.Processor.Indicators;
 
+import com.tictactec.ta.lib.Core;
+import com.tictactec.ta.lib.MInteger;
+import com.tictactec.ta.lib.RetCode;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -22,50 +26,66 @@ public class MACD extends IndicatorClass implements Indicator {
         super(stock);
     }
 
-    public float getK(int n) {  //where n is number of days
-            return 2/(n+1);
-    }
+    public void getEMA() {
+        float[] stockDate = getStockData(40);
 
-    public float calculateEMA(float todaysPrice, int numberOfDays, float EMAYesterday) {
-        float k = getK(numberOfDays);
+        double[] out = new double[40];
 
+        MInteger begin = new MInteger();
+        MInteger length = new MInteger();
 
-        return (todaysPrice*k) + (EMAYesterday * (1-k));
+        Core core = new Core();
 
-    }
+        RetCode ret = core.ema(0, 39, stockDate, 26, begin, length, out);
 
-    public float[] calculateTwentySixDayEMA() {
-        float[] stockDataTwentySix = getStockData(26);
-        float[] emaTwentySix = new float[26];
-
-
-        for (int i = 0; i < 26; i++) {  //calculate the 26 day ema of each stock date
-            if (i == 0) {
-                emaTwentySix[i] = stockDataTwentySix[i];
-            } else {
-                emaTwentySix[i] = calculateEMA(stockDataTwentySix[i], 26, emaTwentySix[i-1]);
-            }
+        if (ret == RetCode.Success) {
+            System.out.println("Output Begin:" + begin.value);
+            System.out.println("Output Begin:" + length.value);
         }
 
-        return emaTwentySix;
-
+        for (int i = begin.value; i < stockDate.length; i++) {
+            StringBuilder line = new StringBuilder();
+            line.append("Period #");
+            line.append(i+1);
+            line.append(" close= ");
+            line.append(stockDate[i]);
+            line.append(" mov avg=");
+            line.append(out[i-begin.value]);
+            System.out.println(line.toString());
+        }
     }
 
-    public float[] calculateTwelveDayEMA() {
-        float[] stockDataTwelve = getStockData(12);
-        float[] emaTwelve = new float[12];
+    public void getMACD() {
+        float[] stockData = getStockData(40);
 
+        double[] outMACD = new double[40];
+        double[] outMACDSIgnal = new double[40];
+        double[] outMACDHist = new double[40];
 
-        for (int i = 0; i < 12; i++) {
-            if (i == 0) {
-                emaTwelve[i] = stockDataTwelve[i];
-            } else {
-                emaTwelve[i] = calculateEMA(stockDataTwelve[i], 12, emaTwelve[i-1]);
-            }
+        MInteger begin = new MInteger();
+        MInteger length = new MInteger();
+
+        Core core = new Core();
+
+        RetCode ret = core.macd(0, 39, stockData, 12, 26, 9, begin, length, outMACD, outMACDSIgnal, outMACDHist);
+
+        if (ret == RetCode.Success) {
+            System.out.println("Output Begin:" + begin.value);
+            System.out.println("Output Begin:" + length.value);
         }
 
-        return emaTwelve;
-
+        for (int i = begin.value; i < stockData.length; i++) {
+            StringBuilder line = new StringBuilder();
+            line.append("Period #");
+            line.append(i+1);
+            line.append(" close= ");
+            line.append(stockData[i]);
+            line.append(" macd=");
+            line.append(outMACD[i-begin.value]);
+            line.append(" signal=");
+            line.append(outMACDSIgnal[i-begin.value]);
+            System.out.println(line.toString());
+        }
     }
 
 
@@ -74,12 +94,12 @@ public class MACD extends IndicatorClass implements Indicator {
         PreparedStatement pst = null;
         Connection con = null;
         ResultSet rs = null;
-        float[] data = new float[50];
-        Date[] dates = new Date[50];
+        float[] data = new float[70];
+        Date[] dates = new Date[70];
         int lastDataPos = 0;
 
 
-        String query = "SELECT close, date FROM HistoricalPrices WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL 50 DAY) AND now() AND symbol = " + STOCK + ';';
+        String query = "SELECT close, date FROM HistoricalPrices WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL 100 DAY) AND now() AND symbol = " + STOCK + ';';
 
         try {
             con = getCon();
@@ -123,7 +143,6 @@ public class MACD extends IndicatorClass implements Indicator {
         for(int i = startPos, x = 0; x < dataTrimmed.length; x++, i++) {
             dataTrimmed[x] = data[i];
         }
-
 
         return dataTrimmed;
     }
