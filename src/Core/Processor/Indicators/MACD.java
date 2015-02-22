@@ -56,18 +56,18 @@ public class MACD extends IndicatorClass implements Indicator {
     }
 
     public void getMACD() {
-        float[] stockData = getStockData(40);
+        float[] stockData = getStockData(150);
 
-        double[] outMACD = new double[40];
-        double[] outMACDSIgnal = new double[40];
-        double[] outMACDHist = new double[40];
+        double[] outMACD = new double[150];
+        double[] outMACDSIgnal = new double[150];
+        double[] outMACDHist = new double[150];
 
         MInteger begin = new MInteger();
         MInteger length = new MInteger();
 
         Core core = new Core();
 
-        RetCode ret = core.macd(0, 39, stockData, 12, 26, 9, begin, length, outMACD, outMACDSIgnal, outMACDHist);
+        RetCode ret = core.macd(142, 149, stockData, 12, 26, 9, begin, length, outMACD, outMACDSIgnal, outMACDHist);
 
         if (ret == RetCode.Success) {
             System.out.println("Output Begin:" + begin.value);
@@ -88,18 +88,43 @@ public class MACD extends IndicatorClass implements Indicator {
         }
     }
 
+    public boolean hasConverged(double[] macd, double[] macdSignal) {
+        boolean macdIsHigher = false;
+        boolean hasConverged = false;
+
+        if (macd[0] > macdSignal[0]) {
+            macdIsHigher = true;
+            return false;
+        }
+
+        int dayCrossed = 0;
+
+        for (int i = 0; i < macd.length; i++) {
+
+            if (macdSignal[i] > macd[i]) {
+                hasConverged = true;
+                dayCrossed = i + 1;
+                return true;
+            }
+
+        }
+
+        return false;
+
+    }
+
 
 
     public float[] getStockData(int amount) {
         PreparedStatement pst = null;
         Connection con = null;
         ResultSet rs = null;
-        float[] data = new float[70];
-        Date[] dates = new Date[70];
+        float[] data = new float[250];
+        Date[] dates = new Date[250];
         int lastDataPos = 0;
 
 
-        String query = "SELECT close, date FROM HistoricalPrices WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL 100 DAY) AND now() AND symbol = " + STOCK + ';';
+        String query = "SELECT close, date FROM HistoricalPrices WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL 250 DAY) AND now() AND symbol = " + STOCK + ';';
 
         try {
             con = getCon();
@@ -153,6 +178,4 @@ public class MACD extends IndicatorClass implements Indicator {
     public float returnIndication() {
         return 0;
     }
-
-
 }

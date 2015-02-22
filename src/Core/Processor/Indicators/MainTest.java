@@ -7,7 +7,7 @@ public class MainTest {
 
     public static void main (String[]args) {
 
-        MACD macd = new MACD("'AAPL'");
+        MACD macd = new MACD("'AA'");
 
         macd.getMACD();
 
