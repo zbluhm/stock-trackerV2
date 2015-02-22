@@ -1,5 +1,7 @@
 package Core.Processor.Indicators;
 
+import java.sql.Connection;
+
 /**
  * Created by ZachBluhm on 2/20/15.
  */

@@ -3,12 +3,13 @@ package Core.Processor.Indicators;
 /**
  * Created by barkerc1 on 2/20/15.
  */
-public class Beta implements Indicator {
+public class Beta extends IndicatorClass implements Indicator {
 
     private double stockReturn;
     private float beta;
 
-    public Beta() {
+    public Beta(String stock) {
+        super(stock);
     }
 
     // TODO: find indicators to returns
