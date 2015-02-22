@@ -7,9 +7,10 @@ public class MainTest {
 
     public static void main (String[]args) {
 
-        Stochastics stoch = new Stochastics("'AAPL'");
+        BollingerBands bb = new BollingerBands("'AAPL'");
 
-        stoch.getStochastics();
+
+        bb.getBollingerBands();
 
     }
 
