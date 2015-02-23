@@ -7,10 +7,9 @@ public class MainTest {
 
     public static void main (String[]args) {
 
-        BollingerBands bb = new BollingerBands("'AAPL'");
+        ADX adx = new ADX("'AAPL'");
 
-
-        bb.getBollingerBands();
+        adx.getADX();
 
     }
 
