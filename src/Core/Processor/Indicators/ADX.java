@@ -35,13 +35,10 @@ public class ADX extends IndicatorClass {
             line.append(i+1);
             line.append(" close= ");
             line.append(close[i]);
-            line.append(" macd=");
+            line.append(" adx=");
             line.append(adx[i-begin.value]);
-            line.append(" signal=");
             System.out.println(line);
         }
-
-
 
     }
 }
