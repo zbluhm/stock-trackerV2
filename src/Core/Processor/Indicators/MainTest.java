@@ -7,9 +7,9 @@ public class MainTest {
 
     public static void main (String[]args) {
 
-        AroonOsc aroon = new AroonOsc("'AAPL'");
+        RSI rsi = new RSI("'AAPL'");
 
-        aroon.getAroonOsc();
+        rsi.getRSI();
 
     }
 
