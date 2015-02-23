@@ -7,9 +7,9 @@ public class MainTest {
 
     public static void main (String[]args) {
 
-        ADX adx = new ADX("'AAPL'");
+        AroonOsc aroon = new AroonOsc("'AAPL'");
 
-        adx.getADX();
+        aroon.getAroonOsc();
 
     }
 
