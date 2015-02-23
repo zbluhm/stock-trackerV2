@@ -7,10 +7,9 @@ public class MainTest {
 
     public static void main (String[]args) {
 
-        RSI rsi = new RSI("'AAPL'");
+        ChaiOSC chai = new ChaiOSC("AAPL");
 
-        rsi.getRSI();
-
+        chai.getChaiOSC();
     }
 
 }

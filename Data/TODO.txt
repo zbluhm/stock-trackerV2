@@ -17,6 +17,10 @@ EXAMPLE CODE TO USE IN JAVA:
         //How to access this data?
         float data = result.getFloat("close");
 
+USEFUL LINKS:
+    http://search.cpan.org/~kmx/Finance-TA-v0.4.1/TA.pod#TA_MAMA_(MESA_Adaptive_Moving_Average) <- some documentation for TA-LIB
+    http://hkramer.nl/opslag/ta-lib_functions.pdf <- explains the params a bit more
+
 
 
 1.) STOCK ANALYSIS METHODS

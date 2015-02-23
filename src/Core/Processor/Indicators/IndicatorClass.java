@@ -44,7 +44,7 @@ public class IndicatorClass {
         int lastDataPos = 0;
 
 
-        String query = "SELECT " + type + ", date FROM HistoricalPrices WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL "+ interval+" DAY) AND now() AND symbol = " + STOCK + ';';
+        String query = "SELECT " + type + ", date FROM HistoricalPrices WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL "+ interval+" DAY) AND now() AND symbol = '" + STOCK + "';";
         System.out.println(query);
         try {
             con = getCon();
