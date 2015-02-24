@@ -20,7 +20,8 @@ public class MACD extends IndicatorClass implements Indicator {
      * t = today, y = yesterday, N = number of days in EMA, k = 2/(N+1)
      *
      */
-
+    double[] signal = new double[150];
+    double[] macd = new double[150];
 
     public MACD(String stock) {
         super(stock);
@@ -28,6 +29,12 @@ public class MACD extends IndicatorClass implements Indicator {
 
     public void getMACD() {
         float[] stockData = getStockData(150, 250, "close");
+
+        if(stockData == null) {
+            signal = null;
+            macd = null;
+            return;
+        }
 
         double[] outMACD = new double[150];
         double[] outMACDSIgnal = new double[150];
@@ -38,25 +45,14 @@ public class MACD extends IndicatorClass implements Indicator {
 
         Core core = new Core();
 
-        RetCode ret = core.macd(135, 149, stockData, 12, 26, 9, begin, length, outMACD, outMACDSIgnal, outMACDHist);
+        RetCode ret = core.macd(0, 149, stockData, 12, 26, 9, begin, length, outMACD, outMACDSIgnal, outMACDHist);
 
-        if (ret == RetCode.Success) {
-            System.out.println("Output Begin:" + begin.value);
-            System.out.println("Output Begin:" + length.value);
+        for(int i = 0; i < outMACDSIgnal.length; i++) {
+            signal[i] = outMACDSIgnal[i];
+            macd[i] = outMACD[i];
         }
 
-        for (int i = begin.value; i < stockData.length; i++) {
-            StringBuilder line = new StringBuilder();
-            line.append("Period #");
-            line.append(i+1);
-            line.append(" close= ");
-            line.append(stockData[i]);
-            line.append(" macd=");
-            line.append(outMACD[i-begin.value]);
-            line.append(" signal=");
-            line.append(outMACDSIgnal[i-begin.value]);
-            System.out.println(line.toString());
-        }
+
     }
 
     public boolean hasConverged(double[] macd, double[] macdSignal) {
@@ -86,5 +82,13 @@ public class MACD extends IndicatorClass implements Indicator {
     @Override
     public float returnIndication() {
         return 0;
+    }
+
+    public double[] getSignal() {
+        return signal;
+    }
+
+    public double[] getMacd() {
+        return macd;
     }
 }

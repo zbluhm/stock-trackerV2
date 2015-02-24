@@ -39,8 +39,8 @@ public class IndicatorClass {
         PreparedStatement pst = null;
         Connection con = null;
         ResultSet rs = null;
-        float[] data = new float[250];
-        Date[] dates = new Date[250];
+        float[] data = new float[interval];
+        Date[] dates = new Date[interval];
         int lastDataPos = 0;
 
 
@@ -84,12 +84,14 @@ public class IndicatorClass {
 
         float[] dataTrimmed = new float[amount];
         int startPos = lastDataPos - amount;
+        if(data.length >= amount && startPos > 0) {
+            for (int i = startPos, x = 0; x < dataTrimmed.length; x++, i++) {
+                dataTrimmed[x] = data[i];
+            }
 
-        for(int i = startPos, x = 0; x < dataTrimmed.length; x++, i++) {
-            dataTrimmed[x] = data[i];
+            return dataTrimmed;
         }
-
-        return dataTrimmed;
+        return null;
     }
 
 

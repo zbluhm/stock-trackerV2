@@ -7,9 +7,9 @@ public class MainTest {
 
     public static void main (String[]args) {
 
-        ChaiOSC chai = new ChaiOSC("AAPL");
+        MACD macd = new MACD("AAPL");
 
-        chai.getChaiOSC();
+        macd.getMACD();
     }
 
 }
