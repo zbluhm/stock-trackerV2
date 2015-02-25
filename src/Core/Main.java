@@ -1,11 +1,13 @@
 package Core;
 
+import Core.Processor.Indicators.AroonOsc;
 import Core.Processor.Indicators.MACD;
+import Core.Processor.Indicators.MAMA;
+import Core.Processor.Indicators.RSI;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by ZachBluhm on 2/20/15.
@@ -13,6 +15,7 @@ import java.util.List;
 public class Main {
 
     static ArrayList<String> good;
+    static int afterMACD;
 
     public static void main(String[]args) {
 
@@ -26,7 +29,27 @@ public class Main {
             for(String line : lines) {
                 handleMACD(line);
                 done++;
-                System.out.println(done + " done out of " + lines.size());
+                if (done == 30) {
+                    break;
+                }
+            }
+
+
+            afterMACD = good.size();
+            for (String stock : good) {
+                ArrayList<String> goodCopy = good;
+                handleRSI(stock, goodCopy);
+                good = goodCopy;
+            }
+            for(String stock : good) {
+                ArrayList<String> goodCopy = new ArrayList<String>();
+                Collections.copy(goodCopy, good);
+                handleMAMA(stock, goodCopy);
+                Collections.copy(good, goodCopy);
+            }
+            for(Iterator<String> it = good.iterator(); it.hasNext();) {
+                String stock = it.next();
+                handleAROON(stock);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,7 +59,8 @@ public class Main {
             System.out.println(stock);
         }
 
-        System.out.println(good.size());
+        System.out.println("After MACD: " + afterMACD);
+        System.out.println("After RSI + MAMA + AROON: " + good.size());
 
     }
 
@@ -63,8 +87,56 @@ public class Main {
                 }
             }
         }
+    }
 
+    public static void handleRSI(String stock, ArrayList goodCopy) {
+        RSI rsi = new RSI(stock);
 
+        rsi.getRSI();
+
+        double[] outRSI = rsi.getOut();
+
+        if (outRSI == null) {
+            System.out.println("null");
+            return;
+        }
+
+        for(int i = 145; i < outRSI.length; i++) {
+            if (outRSI[i-14] < 40 || outRSI[i-14] > 60) {
+                goodCopy.remove(stock);
+            }
+        }
+    }
+
+    public static void handleMAMA(String stock, ArrayList goodCopy) {
+        MAMA mama = new MAMA(stock);
+
+        mama.getMAMA();
+
+        double[] mamaLine = mama.getMama();
+        double[] famaLine = mama.getFama();
+
+        for(int i = 95; i < mamaLine.length; i++) {
+            if(mamaLine[i - 33] < famaLine[i - 33]) {
+                goodCopy.remove(stock);
+            }
+        }
+
+    }
+
+    public static void handleAROON(String stock) {
+        AroonOsc aroon = new AroonOsc(stock);
+
+        aroon.getAroonOsc();
+
+        double[] aroonOsc = aroon.getOut();
+
+        for(int i = 95; i < aroonOsc.length; i++) {
+            if (aroonOsc[i-35] < 50) {
+                good.remove(stock);
+                System.out.println(stock + " removed");
+            }
+        }
     }
 
     public static void handleBeta() {

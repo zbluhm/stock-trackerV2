@@ -9,6 +9,11 @@ import com.tictactec.ta.lib.RetCode;
  * Created by ZachBluhm on 2/23/15.
  */
 public class MAMA extends IndicatorClass {
+
+    double[] mama = new double[100];
+    double[] fama = new double[100];
+
+
     public MAMA(String stock) {
         super(stock);
     }
@@ -41,5 +46,20 @@ public class MAMA extends IndicatorClass {
             System.out.println(line.toString());
         }
 
+        System.out.println(begin.value);
+
+        System.arraycopy(outMAMA, 0, mama, 0, outMAMA.length);
+        System.arraycopy(outFAMA, 0 , fama, 0, outFAMA.length);
+
     }
+
+    public double[] getMama() {
+        return mama;
+    }
+
+    public double[] getFama() {
+        return fama;
+    }
+
+
 }

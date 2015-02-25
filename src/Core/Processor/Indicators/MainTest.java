@@ -7,9 +7,9 @@ public class MainTest {
 
     public static void main (String[]args) {
 
-        MACD macd = new MACD("AAPL");
+        AroonOsc arron = new AroonOsc("AAPL");
 
-        macd.getMACD();
+        arron.getAroonOsc();
     }
 
 }

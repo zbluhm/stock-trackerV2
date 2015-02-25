@@ -15,6 +15,8 @@ public class AroonOsc extends IndicatorClass {
      *
      */
 
+    double[] out = new double[100];
+
     public AroonOsc(String stock) {
         super(stock);
     }
@@ -33,6 +35,8 @@ public class AroonOsc extends IndicatorClass {
 
         RetCode ret = core.aroonOsc(0, 99, high, low, 35, begin, end, out);
 
+        System.out.println(begin.value);
+
         for (int i = begin.value; i < high.length; i++) {
             StringBuilder line = new StringBuilder();
             line.append("Period #");
@@ -45,6 +49,12 @@ public class AroonOsc extends IndicatorClass {
             line.append(out[i-begin.value]);
             System.out.println(line);
         }
+
+        System.arraycopy(out, 0, this.out, 0, out.length);
+    }
+
+    public double[] getOut() {
+        return out;
     }
 
 }

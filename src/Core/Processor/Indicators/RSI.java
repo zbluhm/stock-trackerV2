@@ -9,23 +9,28 @@ import com.tictactec.ta.lib.RetCode;
  */
 public class RSI extends IndicatorClass {
 
+    double[] out = new double[150];
+
     public RSI (String stock) {
         super(stock);
     }
 
+
     public void getRSI() {
-        float[] inData = getStockData(200, 350, "close");
+        float[] inData = getStockData(150, 250, "close");
         MInteger begin = new MInteger();
         MInteger end = new MInteger();
 
-        double[] out = new double[200];
+        double[] out = new double[150];
 
 
         Core core = new Core();
 
-        RetCode ret = core.rsi(0, 199, inData, 14, begin, end, out);
+        RetCode ret = core.rsi(0, 149, inData, 14, begin, end, out);
 
-        for (int i = begin.value; i < inData.length; i++) {
+
+
+        /*for (int i = begin.value; i < inData.length; i++) {
             StringBuilder line = new StringBuilder();
             line.append("Period #");
             line.append(i+1);
@@ -34,6 +39,15 @@ public class RSI extends IndicatorClass {
             line.append(" rsi=");
             line.append(out[i-begin.value]);
             System.out.println(line);
+        }*/
+
+        for(int i = 0; i < out.length; i++) {
+            this.out[i] = out[i];
+
         }
+    }
+
+    public double[] getOut() {
+        return out;
     }
 }

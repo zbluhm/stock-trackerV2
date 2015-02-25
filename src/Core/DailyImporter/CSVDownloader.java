@@ -37,7 +37,11 @@ public class CSVDownloader {
                 try {
                     URL url = new URL(baseUrl + ID + tDate + fDate + interval + end);
 
-                    File file = new File("/Users/ZachBluhm/stock-tracker/Data/DailyCSVs" + ID + ".csv");
+                    File file = new File("/Users/ZachBluhm/stock-tracker/Data/DailyCSVs/" + ID + ".csv");
+
+                    if(file.exists()) {
+                        continue;
+                    }
 
                     FileUtils.copyURLToFile(url, file);
                     done++;
@@ -57,7 +61,7 @@ public class CSVDownloader {
     public static String getFDate() {
         DateTime date = new DateTime();
         int a = date.getMonthOfYear() - 1;
-        int b = date.getDayOfMonth();
+        int b = date.getDayOfMonth()-1;
 
         String fDate = "&a=" + a + "&b=" + b + "&c=2015";
 
